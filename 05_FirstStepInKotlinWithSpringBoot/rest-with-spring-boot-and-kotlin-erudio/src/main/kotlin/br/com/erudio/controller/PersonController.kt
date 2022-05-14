@@ -1,7 +1,7 @@
 package br.com.erudio.controller
 
 import br.com.erudio.data.vo.v1.PersonVO
-import br.com.erudio.model.Person
+import br.com.erudio.data.vo.v2.PersonVO as PersonVOV2
 import br.com.erudio.services.PersonService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.MediaType
@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("/person")
+@RequestMapping("/api/person/v1")
 class PersonController {
 
     @Autowired
@@ -31,6 +31,15 @@ class PersonController {
     )
     fun create(@RequestBody person: PersonVO): PersonVO {
         return service.create(person)
+    }
+
+    @PostMapping(
+        value = ["/v2"],
+        consumes = [MediaType.APPLICATION_JSON_VALUE],
+        produces = [MediaType.APPLICATION_JSON_VALUE]
+    )
+    fun create(@RequestBody person: PersonVOV2): PersonVOV2 {
+        return service.createV2(person)
     }
 
     @PutMapping(
