@@ -2,7 +2,7 @@ package br.com.erudio.services
 
 import br.com.erudio.converter.Converter.convertToDouble
 import br.com.erudio.converter.Converter.isNumeric
-import br.com.erudio.exceptions.UnsupportedMathOperationException
+import br.com.erudio.exceptions.ResourceNotFoundOperationException
 import br.com.erudio.math.SimpleMath
 import br.com.erudio.utils.Validation.isGreaterZeros
 import br.com.erudio.utils.Validation.isNumeric
@@ -48,7 +48,7 @@ class MathService(
     }
 
     fun square(number: String?): Double {
-        if (!isNumeric(number)) throw UnsupportedMathOperationException("Please set a numeric value!")
+        if (!isNumeric(number)) throw ResourceNotFoundOperationException("Please set a numeric value!")
         return simpleMath.square(convertToDouble(number))
 
     }

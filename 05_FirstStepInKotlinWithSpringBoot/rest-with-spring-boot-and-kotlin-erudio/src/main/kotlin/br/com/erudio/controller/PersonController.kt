@@ -23,7 +23,7 @@ class PersonController {
     }
 
     @RequestMapping(value = ["/{id}"], method = [RequestMethod.GET], produces = [MediaType.APPLICATION_JSON_VALUE])
-    fun findById(@PathVariable(value = "id") id: Long): Person {
+    fun findById(@PathVariable(value = "id") id: Long): Person? {
         return service.findById(id)
     }
 
@@ -42,8 +42,9 @@ class PersonController {
         produces = [MediaType.APPLICATION_JSON_VALUE]
     )
     fun update(@RequestBody person: Person): Person {
-        return service.create(person)
+        return service.update(person)
     }
+
     @RequestMapping(value = ["/{id}"], method = [RequestMethod.DELETE], produces = [MediaType.APPLICATION_JSON_VALUE])
     fun delete(@PathVariable(value = "id") id: Long) {
         return service.delete(id)
