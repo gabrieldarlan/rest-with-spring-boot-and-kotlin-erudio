@@ -1,5 +1,6 @@
 package br.com.erudio.controller
 
+import br.com.erudio.data.vo.v1.PersonVO
 import br.com.erudio.model.Person
 import br.com.erudio.services.PersonService
 import org.springframework.beans.factory.annotation.Autowired
@@ -15,12 +16,12 @@ class PersonController {
     private lateinit var service: PersonService
 
     @GetMapping(produces = [MediaType.APPLICATION_JSON_VALUE])
-    fun findAll(): List<Person> {
+    fun findAll(): List<PersonVO> {
         return service.findAll()
     }
 
     @GetMapping(value = ["/{id}"])
-    fun findById(@PathVariable(value = "id") id: Long): Person? {
+    fun findById(@PathVariable(value = "id") id: Long): PersonVO? {
         return service.findById(id)
     }
 
@@ -28,7 +29,7 @@ class PersonController {
         consumes = [MediaType.APPLICATION_JSON_VALUE],
         produces = [MediaType.APPLICATION_JSON_VALUE]
     )
-    fun create(@RequestBody person: Person): Person {
+    fun create(@RequestBody person: PersonVO): PersonVO {
         return service.create(person)
     }
 
@@ -36,14 +37,13 @@ class PersonController {
         consumes = [MediaType.APPLICATION_JSON_VALUE],
         produces = [MediaType.APPLICATION_JSON_VALUE]
     )
-    fun update(@RequestBody person: Person): Person {
+    fun update(@RequestBody person: PersonVO): PersonVO {
         return service.update(person)
     }
 
     @DeleteMapping(value = ["/{id}"], produces = [MediaType.APPLICATION_JSON_VALUE])
     fun delete(@PathVariable(value = "id") id: Long): ResponseEntity<Any> {
-        service.delete(id)
-        return ResponseEntity.noContent().build()
+        return service.delete(id).let { ResponseEntity.noContent().build() }
     }
 
 
